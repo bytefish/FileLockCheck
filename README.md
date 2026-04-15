@@ -15,14 +15,12 @@ Start the `File Lock Check` application.
 A Tray Icon will appear:
 
 <a href="https://raw.githubusercontent.com/bytefish/FileLockCheck/master/doc/tray_file_lock_check.jpg">
-    <img src="https://raw.githubusercontent.com/bytefish/FileLockCheck/master/doc/tray_file_lock_check.jpg" alt="Tray Icon" width="500" />
+    <img src="https://raw.githubusercontent.com/bytefish/FileLockCheck/master/doc/tray_file_lock_check.jpg" alt="Tray Icon" width="250" />
 </a>
 
-Then:
+Select a folder or file in Explorer and press `CTRL + Shift + U`. 
 
-* Select a folder or file in Explorer and press `CTRL + Shift + U`.
-
-And you will see all processes locking the folder or file:
+You will then see all processes locking the folder or file:
 
 <a href="https://raw.githubusercontent.com/bytefish/FileLockCheck/master/doc/window_file_lock_check.jpg">
     <img src="https://raw.githubusercontent.com/bytefish/FileLockCheck/master/doc/window_file_lock_check.jpg" alt="Tray Icon" width="500" />
@@ -31,7 +29,7 @@ And you will see all processes locking the folder or file:
 You can switch the language or quit the application using a Right Click on the Tray Icon:
 
 <a href="https://raw.githubusercontent.com/bytefish/FileLockCheck/master/doc/tray_right_click_file_lock_check.jpg">
-    <img src="https://raw.githubusercontent.com/bytefish/FileLockCheck/master/doc/tray_right_click_file_lock_check.jpg" alt="Tray Icon Settings" width="500" />
+    <img src="https://raw.githubusercontent.com/bytefish/FileLockCheck/master/doc/tray_right_click_file_lock_check.jpg" alt="Tray Icon Settings" width="250" />
 </a>
 
 To change the Global Shortcut click into the Shortcut Box and press your desired Key combination:
