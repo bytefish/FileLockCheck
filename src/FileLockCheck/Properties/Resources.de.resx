@@ -142,7 +142,7 @@
     <value>Hier reinklicken und die gewünschte Tastenkombination drücken</value>
   </data>
   <data name="TrayShowItem" xml:space="preserve">
-    <value>Unlocker anzeigen</value>
+    <value>File Lock Check anzeigen</value>
   </data>
   <data name="TrayExitItem" xml:space="preserve">
     <value>Beenden</value>

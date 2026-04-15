@@ -349,7 +349,7 @@ namespace FileLockCheck.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Unlocker.
+        ///   Looks up a localized string similar to Show File Lock Check.
         /// </summary>
         public static string TrayShowItem {
             get {
