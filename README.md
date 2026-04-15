@@ -14,8 +14,8 @@ Start the `File Lock Check` application.
 
 A Tray Icon will appear:
 
-<a href="https://raw.githubusercontent.com/bytefish/FileLockCheck/main/doc/tray_file_lock_check.jpg">
-    <img src="https://raw.githubusercontent.com/bytefish/FileLockCheck/main/doc/tray_file_lock_check.jpg" alt="Tray Icon" width="100%" />
+<a href="https://raw.githubusercontent.com/bytefish/FileLockCheck/master/doc/tray_file_lock_check.jpg">
+    <img src="https://raw.githubusercontent.com/bytefish/FileLockCheck/master/doc/tray_file_lock_check.jpg" alt="Tray Icon" width="100%" />
 </a>
 
 Then:
@@ -24,18 +24,18 @@ Then:
 
 And you will see all processes locking the folder or file:
 
-<a href="https://raw.githubusercontent.com/bytefish/FileLockCheck/main/doc/window_file_lock_check.jpg">
-    <img src="https://raw.githubusercontent.com/bytefish/FileLockCheck/main/doc/window_file_lock_check.jpg" alt="Tray Icon" width="100%" />
+<a href="https://raw.githubusercontent.com/bytefish/FileLockCheck/master/doc/window_file_lock_check.jpg">
+    <img src="https://raw.githubusercontent.com/bytefish/FileLockCheck/master/doc/window_file_lock_check.jpg" alt="Tray Icon" width="100%" />
 </a>
 
 You can switch the language or quit the application using a Right Click on the Tray Icon:
 
-<a href="https://raw.githubusercontent.com/bytefish/FileLockCheck/main/doc/tray_right_click_file_lock_check.jpg">
-    <img src="https://raw.githubusercontent.com/bytefish/FileLockCheck/main/doc/tray_right_click_file_lock_check.jpg" alt="Tray Icon Settings" width="100%" />
+<a href="https://raw.githubusercontent.com/bytefish/FileLockCheck/master/doc/tray_right_click_file_lock_check.jpg">
+    <img src="https://raw.githubusercontent.com/bytefish/FileLockCheck/master/doc/tray_right_click_file_lock_check.jpg" alt="Tray Icon Settings" width="100%" />
 </a>
 
 To change the Global Shortcut click into the Shortcut Box and press your desired Key combination:
 
-<a href="https://raw.githubusercontent.com/bytefish/FileLockCheck/main/doc/window_change_shortcut.jpg">
-    <img src="https://raw.githubusercontent.com/bytefish/FileLockCheck/main/doc/window_change_shortcut.jpg" alt="Global Shortcut Change" width="100%" />
+<a href="https://raw.githubusercontent.com/bytefish/FileLockCheck/master/doc/window_change_shortcut.jpg">
+    <img src="https://raw.githubusercontent.com/bytefish/FileLockCheck/master/doc/window_change_shortcut.jpg" alt="Global Shortcut Change" width="100%" />
 </a>
