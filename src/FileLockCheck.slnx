@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="FileLockCheck.Setup/FileLockCheck.Setup.vdproj" Type="Installer">
+    <Build />
+  </Project>
+  <Project Path="FileLockCheck/FileLockCheck.csproj" />
+</Solution>
