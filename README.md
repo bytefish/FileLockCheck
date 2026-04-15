@@ -1,8 +1,8 @@
 # File Lock Check #
 
-**FileLockCheck** is an application to show, which processes are blocking a file. This is 
-useful to find out why we cannot delete a directory... especially when trying to delete a 
-monstrous `node_modules` folder.
+**FileLockCheck** is an application to show, which processes are blocking a folder or file. This 
+is useful to find out why we cannot delete a folder or a file... double so, when trying to delete 
+a monstrous `node_modules` folder. 🤭
 
 I have added a Setup Project to build an Installer with a Self-Contained Runtime, but it's too 
 large to upload it to GitHub. If there is interest, we can try to find a place to put an installer 
