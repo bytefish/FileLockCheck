@@ -213,4 +213,13 @@
   <data name="CopyErrorMessage" xml:space="preserve">
     <value>Fehler beim Erstellen der XML-Daten: {0}</value>
   </data>
+  <data name="NoDescriptionAvailable" xml:space="preserve">
+    <value>Keine Beschreibung verfügbar</value>
+  </data>
+  <data name="AccessDeniedShort" xml:space="preserve">
+    <value>Zugriff verweigert</value>
+  </data>
+  <data name="CopyXml" xml:space="preserve">
+    <value>In Zwischenspeicher kopieren</value>
+  </data>
 </root>

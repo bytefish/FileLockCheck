@@ -213,4 +213,13 @@
   <data name="CopyErrorMessage" xml:space="preserve">
     <value>Error creating XML data: {0}</value>
   </data>
+  <data name="NoDescriptionAvailable" xml:space="preserve">
+    <value>No description available</value>
+  </data>
+  <data name="AccessDeniedShort" xml:space="preserve">
+    <value>Access denied</value>
+  </data>
+  <data name="CopyXml" xml:space="preserve">
+    <value>Copy to Clipboard</value>
+  </data>
 </root>

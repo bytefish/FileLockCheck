@@ -14,6 +14,8 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
+namespace FileLockCheck.Infrastructure;
+
 public class NativeHelpers
 {
     [DllImport("user32.dll")]
@@ -314,8 +316,8 @@ public class NativeHelpers
                 return; // Ignore System-PIDs
             }
 
-            string procName = "Unbekannt";
-            string exePath = "Zugriff verweigert";
+            string procName = Properties.Resources.Unknown;
+            string exePath = Properties.Resources.AccessDeniedShort;
             string title = string.Empty;
             string? description = null;
             string? memoryUsage = null;
@@ -339,7 +341,7 @@ public class NativeHelpers
             }
 
             // Extract Metadata if we have a valid exe path
-            if (exePath != "Zugriff verweigert" && File.Exists(exePath))
+            if (exePath != Properties.Resources.AccessDeniedShort && File.Exists(exePath))
             {
                 iconSource = GetIconFromExe(exePath);
                 try
@@ -355,7 +357,7 @@ public class NativeHelpers
             {
                 using (Process p = Process.GetProcessById(pid))
                 {
-                    if (procName == "Unbekannt")
+                    if (procName == Properties.Resources.Unknown)
                     {
                         procName = p.ProcessName;
                     }
@@ -385,9 +387,9 @@ public class NativeHelpers
                 ProcessName = procName,
                 ExePath = exePath,
                 MainWindowTitle = title,
-                Description = description ?? "Keine Beschreibung verfügbar",
-                MemoryUsage = memoryUsage ?? "Unbekannt",
-                StartTime = startTime ?? "Unbekannt",
+                Description = description ?? Properties.Resources.NoDescriptionAvailable,
+                MemoryUsage = memoryUsage ?? Properties.Resources.Unknown,
+                StartTime = startTime ?? Properties.Resources.Unknown,
                 Icon = iconSource,
                 LockedFiles = kvp.Value.Distinct().ToList()
             });

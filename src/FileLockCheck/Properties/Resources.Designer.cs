@@ -70,6 +70,15 @@ namespace FileLockCheck.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Access denied.
+        /// </summary>
+        public static string AccessDeniedShort {
+            get {
+                return ResourceManager.GetString("AccessDeniedShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string CaptionError {
@@ -111,6 +120,15 @@ namespace FileLockCheck.Properties {
         public static string CopySuccess {
             get {
                 return ResourceManager.GetString("CopySuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy to Clipboard.
+        /// </summary>
+        public static string CopyXml {
+            get {
+                return ResourceManager.GetString("CopyXml", resourceCulture);
             }
         }
         
@@ -165,6 +183,15 @@ namespace FileLockCheck.Properties {
         public static string KillProcessButton {
             get {
                 return ResourceManager.GetString("KillProcessButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No description available.
+        /// </summary>
+        public static string NoDescriptionAvailable {
+            get {
+                return ResourceManager.GetString("NoDescriptionAvailable", resourceCulture);
             }
         }
         
