@@ -10,7 +10,7 @@ at.
 
 ## Basic Usage ##
 
-Start the `File Lock Check` application.
+Start the **File Lock Check** application, usually called `FileLockCheck.exe`.
 
 A Tray Icon will appear:
 
