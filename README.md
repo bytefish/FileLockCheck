@@ -4,10 +4,6 @@
 is useful to find out why we cannot delete a folder or a file... double so, when trying to delete 
 a monstrous `node_modules` folder. 🤭
 
-I have added a Setup Project to build an Installer with a Self-Contained Runtime, but it's too 
-large to upload it to GitHub. If there is interest, we can try to find a place to put an installer 
-at.
-
 ## Basic Usage ##
 
 Start the **File Lock Check** application, the executable is usually called `FileLockCheck.exe`.
