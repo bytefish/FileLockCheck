@@ -18,7 +18,7 @@ A Tray Icon will appear:
     <img src="https://raw.githubusercontent.com/bytefish/FileLockCheck/master/doc/tray_file_lock_check.jpg" alt="Tray Icon" width="250" />
 </a>
 
-Select a folder or file in Explorer and press `CTRL + Shift + U`. 
+Select a folder or file in Explorer and press `Control + Shift + U`. 
 
 You will then see all processes locking the folder or file:
 
