@@ -1,4 +1,5 @@
 ﻿using FileLockCheck.Infrastructure;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -7,19 +8,19 @@ namespace FileLockCheck.ViewModels;
 
 public class MainViewModel : INotifyPropertyChanged
 {
-    private string _targetFilePath;
-    private string _statusMessage;
+    private string? _targetFilePath;
+    private string? _statusMessage;
     private bool _hasLocks;
 
     public ObservableCollection<LockingProcess> LockingProcesses { get; } = new ObservableCollection<LockingProcess>();
 
-    public string TargetFilePath
+    public string? TargetFilePath
     {
         get => _targetFilePath;
         set { _targetFilePath = value; OnPropertyChanged(); }
     }
 
-    public string StatusMessage
+    public string? StatusMessage
     {
         get => _statusMessage;
         set { _statusMessage = value; OnPropertyChanged(); }
@@ -36,7 +37,7 @@ public class MainViewModel : INotifyPropertyChanged
     /// </summary>
     public void AnalyzeCurrentSelection()
     {
-        string selectedFile = NativeHelpers.GetSelectedFileInExplorer();
+        string? selectedFile = NativeHelpers.GetSelectedPathInExplorer();
 
         LockingProcesses.Clear();
 
@@ -49,7 +50,8 @@ public class MainViewModel : INotifyPropertyChanged
         }
 
         TargetFilePath = selectedFile;
-        var processes = NativeHelpers.GetLockingProcesses(selectedFile);
+
+        List<LockingProcess> processes = NativeHelpers.GetLockingProcesses([ selectedFile ]);
 
         if (processes.Count == 0)
         {
@@ -60,15 +62,16 @@ public class MainViewModel : INotifyPropertyChanged
         {
             StatusMessage = string.Format(Properties.Resources.StatusLockedFormat, processes.Count);
             HasLocks = true;
-            foreach (var p in processes)
+            foreach (LockingProcess p in processes)
             {
                 LockingProcesses.Add(p);
             }
         }
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

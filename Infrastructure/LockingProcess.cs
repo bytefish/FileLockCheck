@@ -1,4 +1,6 @@
-﻿namespace FileLockCheck.Infrastructure;
+﻿using System.Collections.Generic;
+
+namespace FileLockCheck.Infrastructure;
 
 /// <summary>
 /// All information about a process that is locking the file. This class is used to display detailed information 
@@ -57,4 +59,12 @@ public class LockingProcess
     /// process at a glance, especially if they are familiar with the application's icon.
     /// </summary>
     public System.Windows.Media.ImageSource? Icon { get; set; }
+
+    /// <summary>
+    /// List of Files that are locked by this process. This can help users understand which specific files 
+    /// are being locked, if we try to delete a folder and multiple files are locked by the same process. 
+    /// 
+    /// This information can be crucial for users.
+    /// </summary>
+    public List<string> LockedFiles { get; set; } = new List<string>();
 }

@@ -70,6 +70,60 @@ namespace FileLockCheck.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string CaptionError {
+            get {
+                return ResourceManager.GetString("CaptionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information.
+        /// </summary>
+        public static string CaptionInformation {
+            get {
+                return ResourceManager.GetString("CaptionInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string CaptionSuccess {
+            get {
+                return ResourceManager.GetString("CaptionSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error creating XML data: {0}.
+        /// </summary>
+        public static string CopyErrorMessage {
+            get {
+                return ResourceManager.GetString("CopyErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All information for blocking processes has been copied to clipboard..
+        /// </summary>
+        public static string CopySuccess {
+            get {
+                return ResourceManager.GetString("CopySuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show locked files.
+        /// </summary>
+        public static string ExpanderLockedFiles {
+            get {
+                return ResourceManager.GetString("ExpanderLockedFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File Lock Check.
         /// </summary>
         public static string HeaderTitle {
@@ -111,6 +165,24 @@ namespace FileLockCheck.Properties {
         public static string KillProcessButton {
             get {
                 return ResourceManager.GetString("KillProcessButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No locking process details to copy..
+        /// </summary>
+        public static string NoProcessData {
+            get {
+                return ResourceManager.GetString("NoProcessData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Title.
+        /// </summary>
+        public static string NoTitle {
+            get {
+                return ResourceManager.GetString("NoTitle", resourceCulture);
             }
         }
         

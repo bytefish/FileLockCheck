@@ -189,4 +189,28 @@
   <data name="KillErrorTitle" xml:space="preserve">
     <value>Fehler</value>
   </data>
+  <data name="ExpanderLockedFiles" xml:space="preserve">
+    <value>Gesperrte Dateien anzeigen</value>
+  </data>
+  <data name="NoTitle" xml:space="preserve">
+    <value>Kein Titel</value>
+  </data>
+  <data name="NoProcessData" xml:space="preserve">
+    <value>Keine Prozessdaten zum Kopieren vorhanden.</value>
+  </data>
+  <data name="CaptionInformation" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="CopySuccess" xml:space="preserve">
+    <value>Die Informationen über die blockierenden Prozesse wurden erfolgreich als XML in die Zwischenablage kopiert.</value>
+  </data>
+  <data name="CaptionSuccess" xml:space="preserve">
+    <value>Erfolg</value>
+  </data>
+  <data name="CaptionError" xml:space="preserve">
+    <value>Fehler</value>
+  </data>
+  <data name="CopyErrorMessage" xml:space="preserve">
+    <value>Fehler beim Erstellen der XML-Daten: {0}</value>
+  </data>
 </root>

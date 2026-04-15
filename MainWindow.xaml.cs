@@ -4,11 +4,13 @@ using FileLockCheck.ViewModels;
 using System;
 using System.Drawing; // Benötigt für SystemIcons
 using System.Globalization;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Xml.Linq;
 using WinForms = System.Windows.Forms;
 
 namespace FileLockCheck;
@@ -26,17 +28,17 @@ public partial class MainWindow : Window
     private const int WM_HOTKEY = 0x0312;
 
     private IntPtr _windowHandle;
-    private HwndSource _source;
+    private HwndSource? _source;
     private MainViewModel _viewModel;
 
-    private WinForms.NotifyIcon _notifyIcon;
+    private WinForms.NotifyIcon? _notifyIcon;
     private AppConfig _config;
 
     public MainWindow()
     {
         InitializeComponent();
         _viewModel = new MainViewModel();
-        this.DataContext = _viewModel;
+        DataContext = _viewModel;
 
         // Load configuration from %APPDATA%
         _config = AppConfig.Load();
@@ -49,7 +51,7 @@ public partial class MainWindow : Window
         }
 
         // Start the application hidden
-        this.Visibility = Visibility.Hidden;
+        Visibility = Visibility.Hidden;
 
         SetupTrayIcon();
         UpdateHotkeyUI();
@@ -73,24 +75,24 @@ public partial class MainWindow : Window
     private void SetupTrayMenu()
     {
         // Create context menu
-        var contextMenu = new WinForms.ContextMenuStrip();
+        WinForms.ContextMenuStrip contextMenu = new WinForms.ContextMenuStrip();
 
-        var showItem = new WinForms.ToolStripMenuItem(Properties.Resources.TrayShowItem);
+        WinForms.ToolStripMenuItem showItem = new WinForms.ToolStripMenuItem(Properties.Resources.TrayShowItem);
         showItem.Click += (s, e) => ShowMainWindow();
 
-        var langItem = new WinForms.ToolStripMenuItem(Properties.Resources.TrayLanguageItem);
-        var langEn = new WinForms.ToolStripMenuItem("English");
+        WinForms.ToolStripMenuItem langItem = new WinForms.ToolStripMenuItem(Properties.Resources.TrayLanguageItem);
+        WinForms.ToolStripMenuItem langEn = new WinForms.ToolStripMenuItem("English");
         langEn.Click += (s, e) => SwitchLanguage("en-US");
-        var langDe = new WinForms.ToolStripMenuItem("Deutsch");
+        WinForms.ToolStripMenuItem langDe = new WinForms.ToolStripMenuItem("Deutsch");
         langDe.Click += (s, e) => SwitchLanguage("de-DE");
 
         langItem.DropDownItems.Add(langEn);
         langItem.DropDownItems.Add(langDe);
 
-        var exitItem = new WinForms.ToolStripMenuItem(Properties.Resources.TrayExitItem);
+        WinForms.ToolStripMenuItem exitItem = new WinForms.ToolStripMenuItem(Properties.Resources.TrayExitItem);
         exitItem.Click += (s, e) =>
         {
-            _notifyIcon.Visible = false;
+            _notifyIcon?.Visible = false;
             Application.Current.Shutdown();
         };
 
@@ -99,7 +101,7 @@ public partial class MainWindow : Window
         contextMenu.Items.Add(new WinForms.ToolStripSeparator());
         contextMenu.Items.Add(exitItem);
 
-        _notifyIcon.ContextMenuStrip = contextMenu;
+        _notifyIcon?.ContextMenuStrip = contextMenu;
     }
 
     private void SwitchLanguage(string cultureCode)
@@ -140,10 +142,25 @@ public partial class MainWindow : Window
 
         // Translate WPF modifiers to Native Windows modifiers
         int nativeModifiers = MOD_NOREPEAT;
-        if (_config.Modifiers.HasFlag(ModifierKeys.Alt)) nativeModifiers |= 0x0001;
-        if (_config.Modifiers.HasFlag(ModifierKeys.Control)) nativeModifiers |= 0x0002;
-        if (_config.Modifiers.HasFlag(ModifierKeys.Shift)) nativeModifiers |= 0x0004;
-        if (_config.Modifiers.HasFlag(ModifierKeys.Windows)) nativeModifiers |= 0x0008;
+        if (_config.Modifiers.HasFlag(ModifierKeys.Alt))
+        {
+            nativeModifiers |= 0x0001;
+        }
+
+        if (_config.Modifiers.HasFlag(ModifierKeys.Control))
+        {
+            nativeModifiers |= 0x0002;
+        }
+
+        if (_config.Modifiers.HasFlag(ModifierKeys.Shift))
+        {
+            nativeModifiers |= 0x0004;
+        }
+
+        if (_config.Modifiers.HasFlag(ModifierKeys.Windows))
+        {
+            nativeModifiers |= 0x0008;
+        }
 
         int virtualKey = KeyInterop.VirtualKeyFromKey(_config.HotKey);
 
@@ -181,11 +198,14 @@ public partial class MainWindow : Window
         var key = e.Key == Key.System ? e.SystemKey : e.Key;
 
         // Save and apply (avoid empty modifiers)
-        if (modifiers == ModifierKeys.None) return;
+        if (modifiers == ModifierKeys.None)
+        {
+            return;
+        }
 
-        _config.Modifiers = modifiers;
-        _config.HotKey = key;
-        _config.Save();
+        _config!.Modifiers = modifiers;
+        _config!.HotKey = key;
+        _config!.Save();
 
         UpdateHotkeyUI();
         RegisterCurrentHotkey();
@@ -221,7 +241,10 @@ public partial class MainWindow : Window
             _source = null;
         }
         UnregisterHotKey(_windowHandle, HOTKEY_ID);
-        if (_notifyIcon != null) _notifyIcon.Dispose();
+        if (_notifyIcon != null)
+        {
+            _notifyIcon.Dispose();
+        }
 
         base.OnClosed(e);
     }
@@ -250,6 +273,45 @@ public partial class MainWindow : Window
                     MessageBox.Show(ex.Message, Properties.Resources.KillErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+        }
+    }
+
+    private void CopyAsXml_Click(object sender, RoutedEventArgs e)
+    {
+        MainViewModel viewModel = (MainViewModel)DataContext;
+
+        if (viewModel == null || viewModel?.LockingProcesses == null)
+        {
+            MessageBox.Show(Properties.Resources.NoProcessData, Properties.Resources.CaptionInformation, MessageBoxButton.OK, MessageBoxImage.Information);
+            return;
+        }
+
+        try
+        {
+            // Create the XML-Dokument using LINQ to XML
+            XElement xmlData = new XElement("LockingProcesses",
+                viewModel.LockingProcesses
+                .Select(p => new XElement("Process",
+                    new XAttribute("PID", p.ProcessId),
+                    new XElement("Name", p.ProcessName ?? Properties.Resources.Unknown),
+                    new XElement("ExePath", p.ExePath ?? Properties.Resources.Unknown),
+                    new XElement("MainWindowTitle", string.IsNullOrWhiteSpace(p.MainWindowTitle) ? Properties.Resources.NoTitle : p.MainWindowTitle),
+                    new XElement("Description", p.Description ?? Properties.Resources.Unknown),
+                    new XElement("MemoryUsage", p.MemoryUsage ?? Properties.Resources.Unknown),
+                    new XElement("StartTime", p.StartTime ?? Properties.Resources.Unknown),
+                    new XElement("LockedFiles",
+                        p.LockedFiles.Select(file => new XElement("File", file))
+                    )
+                ))
+            );
+
+            Clipboard.SetText(xmlData.ToString());
+
+            MessageBox.Show(Properties.Resources.CopySuccess, Properties.Resources.CaptionSuccess, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(string.Format(Properties.Resources.CopyErrorMessage, ex.Message), Properties.Resources.CaptionError, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

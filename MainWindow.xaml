@@ -4,9 +4,9 @@
         xmlns:local="clr-namespace:FileLockCheck"
         xmlns:converters="clr-namespace:FileLockCheck.Converters"
         xmlns:res="clr-namespace:FileLockCheck.Properties"
-        Title="{x:Static res:Resources.WindowTitle}" Height="450" Width="550"
+        Title="{x:Static res:Resources.WindowTitle}" Height="500" Width="600"
         WindowStartupLocation="CenterScreen"
-        Background="#1E1E1E" Foreground="White"
+        Background="#F5F6F8" Foreground="#333333"
         FontFamily="Segoe UI"
         Closing="Window_Closing">
 
@@ -23,14 +23,26 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Header -->
-        <TextBlock Text="{x:Static res:Resources.HeaderTitle}" FontSize="24" FontWeight="SemiBold" Foreground="#4DA8DA" Margin="0,0,0,15"/>
+        <!-- Header with XML Copy Button -->
+        <Grid Grid.Row="0" Margin="0,0,0,15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
-        <!-- Datei-Informationen -->
-        <Border Grid.Row="1" Background="#2D2D30" CornerRadius="5" Padding="10" Margin="0,0,0,15">
+            <TextBlock Text="{x:Static res:Resources.HeaderTitle}" FontSize="24" FontWeight="SemiBold" Foreground="#0078D7"/>
+
+            <Button Grid.Column="1" Content="XML Kopieren" Click="CopyAsXml_Click" 
+                    Padding="10,5" Background="#FFFFFF" BorderBrush="#CCCCCC" BorderThickness="1" 
+                    Cursor="Hand" Foreground="#333333" FontWeight="SemiBold"
+                    ToolTip="Kopiert alle blockierenden Prozesse und Dateien als XML in die Zwischenablage"/>
+        </Grid>
+
+        <!-- General File Information about the selected file -->
+        <Border Grid.Row="1" Background="#FFFFFF" BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="5" Padding="10" Margin="0,0,0,15">
             <StackPanel>
-                <TextBlock Text="{x:Static res:Resources.SelectedFileLabel}" FontSize="12" Foreground="#AAAAAA"/>
-                <TextBlock Text="{Binding TargetFilePath}" FontSize="14" TextWrapping="Wrap" Margin="0,5,0,0"/>
+                <TextBlock Text="{x:Static res:Resources.SelectedFileLabel}" FontSize="12" Foreground="#666666"/>
+                <TextBlock Text="{Binding TargetFilePath}" FontSize="14" TextWrapping="Wrap" Margin="0,5,0,0" Foreground="#111111"/>
             </StackPanel>
         </Border>
 
@@ -38,13 +50,30 @@
         <TextBlock Grid.Row="2" Text="{Binding StatusMessage}" FontSize="14" Margin="0,0,0,10" FontWeight="SemiBold"
                    Foreground="{Binding HasLocks, Converter={StaticResource BooleanToBrushConverter}}"/>
 
-        <!-- Prozess-Liste -->
-        <Border Grid.Row="3" Background="#252526" CornerRadius="5" Padding="5">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ItemsControl ItemsSource="{Binding LockingProcesses}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border Background="#333337" CornerRadius="4" Padding="10" Margin="5">
+        <!-- List of Processes -->
+        <Border Grid.Row="3" Background="#EFEFEF" BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="5" Padding="5">
+            <ListBox ItemsSource="{Binding LockingProcesses}" Background="Transparent" BorderThickness="0"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     HorizontalContentAlignment="Stretch"
+                     VirtualizingPanel.IsVirtualizing="True"
+                     VirtualizingPanel.VirtualizationMode="Recycling">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Focusable" Value="False"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <ContentPresenter/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <!-- Create a card for each process -->
+                        <Border Background="#FFFFFF" BorderBrush="#DDDDDD" BorderThickness="1" CornerRadius="4" Padding="10" Margin="5">
+                            <StackPanel>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -52,18 +81,18 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <!-- Linke Spalte: Icon und Prozess-ID -->
+                                    <!-- Left Column: Icon and Process-ID -->
                                     <StackPanel Grid.Column="0" Margin="0,0,15,0" VerticalAlignment="Top">
                                         <Image Source="{Binding Icon}" Width="32" Height="32" Margin="0,0,0,8" Stretch="Uniform"/>
-                                        <Border Background="#D32F2F" CornerRadius="3" Padding="5,2" HorizontalAlignment="Center">
+                                        <Border Background="#F44336" CornerRadius="3" Padding="5,2" HorizontalAlignment="Center">
                                             <TextBlock Text="{Binding ProcessId, StringFormat=PID: {0}}" FontSize="11" Foreground="White" FontWeight="Bold"/>
                                         </Border>
                                     </StackPanel>
 
-                                    <!-- Rechte Spalte: Detaillierte Informationen -->
+                                    <!-- Right Column: Detailed Process Information -->
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="{Binding ProcessName}" FontSize="16" FontWeight="SemiBold"/>
-                                        <TextBlock Text="{Binding Description}" FontSize="12" Foreground="#CCCCCC" FontStyle="Italic" Margin="0,0,0,5" TextTrimming="CharacterEllipsis"/>
+                                        <TextBlock Text="{Binding ProcessName}" FontSize="16" FontWeight="SemiBold" Foreground="#222222"/>
+                                        <TextBlock Text="{Binding Description}" FontSize="12" Foreground="#777777" FontStyle="Italic" Margin="0,0,0,5" TextTrimming="CharacterEllipsis"/>
 
                                         <Grid Margin="0,5,0,0">
                                             <Grid.ColumnDefinitions>
@@ -77,38 +106,70 @@
                                             </Grid.RowDefinitions>
 
                                             <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static res:Resources.PathLabel}" FontSize="11" Foreground="#888888" Margin="0,0,10,2"/>
-                                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ExePath}" FontSize="11" Foreground="#AAAAAA" TextTrimming="CharacterEllipsis" ToolTip="{Binding ExePath}"/>
+                                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ExePath}" FontSize="11" Foreground="#555555" TextTrimming="CharacterEllipsis" ToolTip="{Binding ExePath}"/>
 
                                             <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static res:Resources.RamLabel}" FontSize="11" Foreground="#888888" Margin="0,0,10,2"/>
-                                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding MemoryUsage}" FontSize="11" Foreground="#AAAAAA"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding MemoryUsage}" FontSize="11" Foreground="#555555"/>
 
                                             <TextBlock Grid.Row="2" Grid.Column="0" Text="{x:Static res:Resources.StartLabel}" FontSize="11" Foreground="#888888" Margin="0,0,10,2"/>
-                                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding StartTime}" FontSize="11" Foreground="#AAAAAA"/>
+                                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding StartTime}" FontSize="11" Foreground="#555555"/>
                                         </Grid>
                                     </StackPanel>
 
-                                    <!-- Rechte Spalte: Prozess beenden Button -->
+                                    <!-- Kill Process Button -->
                                     <Button Grid.Column="2" Content="{x:Static res:Resources.KillProcessButton}"
                                             VerticalAlignment="Center" Padding="10,5" Margin="10,0,0,0"
                                             Background="#D32F2F" Foreground="White" BorderThickness="0" Cursor="Hand"
                                             Click="KillProcess_Click" ToolTip="{x:Static res:Resources.KillProcessButton}"/>
                                 </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
+
+                                <!-- Expander to see the locked files -->
+                                <Expander Header="{x:Static res:Resources.ExpanderLockedFiles}" Margin="0,15,0,0" Foreground="#444444">
+                                    <Border Background="#F9F9F9" BorderBrush="#EEEEEE" BorderThickness="1" CornerRadius="3" Padding="5" Margin="0,5,0,0">
+                                        <ListBox ItemsSource="{Binding LockedFiles}" MaxHeight="120"
+                                                 Background="Transparent" BorderThickness="0"
+                                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                 VirtualizingPanel.IsVirtualizing="True"
+                                                 VirtualizingPanel.VirtualizationMode="Recycling">
+                                            <ListBox.ItemContainerStyle>
+                                                <Style TargetType="ListBoxItem">
+                                                    <Setter Property="Focusable" Value="False"/>
+                                                    <Setter Property="IsHitTestVisible" Value="False"/>
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="ListBoxItem">
+                                                                <ContentPresenter/>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </ListBox.ItemContainerStyle>
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding}" FontSize="11" Foreground="#555555" TextWrapping="Wrap" Margin="0,3"/>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </Border>
+                                </Expander>
+
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Border>
-        <!-- Einstellungen / Shortcut-Konfiguration -->
-        <Border Grid.Row="4" Background="#2D2D30" CornerRadius="5" Padding="10" Margin="0,15,0,0">
+
+        <!-- Shortcut-Configuration -->
+        <Border Grid.Row="4" Background="#FFFFFF" BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="5" Padding="10" Margin="0,15,0,0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{x:Static res:Resources.ShortcutLabel}" VerticalAlignment="Center" Foreground="#AAAAAA" Margin="0,0,10,0"/>
+                <TextBlock Text="{x:Static res:Resources.ShortcutLabel}" VerticalAlignment="Center" Foreground="#555555" Margin="0,0,10,0"/>
 
-                <TextBox x:Name="HotkeyTextBox" Grid.Column="1" Background="#1E1E1E" Foreground="White" BorderBrush="#555" 
+                <TextBox x:Name="HotkeyTextBox" Grid.Column="1" Background="#F0F0F0" Foreground="#111111" BorderBrush="#CCCCCC" 
                          Padding="5" IsReadOnly="True" Cursor="Hand" TextAlignment="Center" FontWeight="Bold"
                          ToolTip="{x:Static res:Resources.ShortcutTooltip}"
                          PreviewKeyDown="HotkeyTextBox_PreviewKeyDown"/>

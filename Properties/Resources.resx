@@ -189,4 +189,28 @@
   <data name="KillErrorTitle" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="ExpanderLockedFiles" xml:space="preserve">
+    <value>Show locked files</value>
+  </data>
+  <data name="NoTitle" xml:space="preserve">
+    <value>No Title</value>
+  </data>
+  <data name="NoProcessData" xml:space="preserve">
+    <value>No locking process details to copy.</value>
+  </data>
+  <data name="CaptionInformation" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="CopySuccess" xml:space="preserve">
+    <value>All information for blocking processes has been copied to clipboard.</value>
+  </data>
+  <data name="CaptionSuccess" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="CaptionError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="CopyErrorMessage" xml:space="preserve">
+    <value>Error creating XML data: {0}</value>
+  </data>
 </root>
