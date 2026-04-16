@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="../README.md" />
+  </Folder>
   <Project Path="FileLockCheck.Setup/FileLockCheck.Setup.vdproj" Type="Installer">
     <Build Solution="Release|*" />
   </Project>

@@ -4,9 +4,13 @@
 is useful to find out why we cannot delete a folder or a file... double so, when trying to delete 
 a monstrous `node_modules` folder. 🤭
 
+The MSI installer is released at:
+
+* [https://github.com/bytefish/FileLockCheck/releases/download/1.0.0/FileLockCheck.Setup.msi](https://github.com/bytefish/FileLockCheck/releases/download/1.0.0/FileLockCheck.Setup.msi)
+
 ## Basic Usage ##
 
-Start the **File Lock Check** application, the executable is usually called `FileLockCheck.exe`.
+Start the **File Lock Check** application using the Desktop Shortcut or using the executable.
 
 A Tray Icon will appear:
 
